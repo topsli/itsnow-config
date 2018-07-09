@@ -1,0 +1,15 @@
+server:
+  port: 8966
+
+itsnow:
+  auth:
+    clientId: itsnow
+    clientSecret: itsnowSecret
+    scope: server
+        
+logging:
+    level:
+        com.itsnow.auth: DEBUG
+        com.itsnow.api: DEBUG
+    config: classpath:logback.xml
+    path: /itsnow/auth

@@ -1,0 +1,51 @@
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
+        
+server:
+    port: 8965
+
+zuul:
+  ignoredServices: '*'
+  host:
+    connect-timeout-millis: 20000
+    socket-timeout-millis: 20000
+  routes:
+    itsnow-user:
+      path: /itsnow-user/**
+      serviceId: itsnow-user
+      stripPrefix: true
+      sensitiveHeaders:
+    itsnow-auth:
+      path: /itsnow-auth/**
+      serviceId: itsnow-auth
+      stripPrefix: true
+      sensitiveHeaders: 
+
+ribbon:
+  ReadTimeout: 20000
+  ConnectTimeout: 20000
+
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://127.0.0.1:8961/eureka/
+
+security:
+  sessions: stateless
+  oauth2:
+    resource:
+      loadBalanced: true
+      user-info-uri: http://itsnow-auth/user
+      prefer-token-info: false
+      service-id: itsnow-gate
+      
+logging:
+    level:
+        com.itsnow.gate: DEBUG
+    config: classpath:logback.xml
+    path: /itsnow/gate
